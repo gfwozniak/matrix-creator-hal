@@ -3,7 +3,7 @@
  * All rights reserved.
  */
 #include <gflags/gflags.h>
-#include <wiringPi.h>
+//#include <wiringPi.h>
 
 #include <cmath>
 #include <iostream>

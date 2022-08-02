@@ -6,7 +6,7 @@
 #include <gflags/gflags.h>
 #include <stdint.h>
 #include <string.h>
-#include <wiringPi.h>
+//#include <wiringPi.h>
 
 #include <fstream>
 #include <iostream>

@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <wiringPi.h>
 #include <cmath>
 #include <condition_variable>
 #include <cstdint>
@@ -58,10 +57,10 @@ MicrophoneArray::~MicrophoneArray() {}
 void MicrophoneArray::Setup(MatrixIOBus *bus) {
   MatrixDriver::Setup(bus);
 
-  wiringPiSetup();
+  //wiringPiSetup();
 
-  pinMode(kMicrophoneArrayIRQ, INPUT);
-  wiringPiISR(kMicrophoneArrayIRQ, INT_EDGE_BOTH, &irq_callback);
+  //pinMode(kMicrophoneArrayIRQ, INPUT);
+  //wiringPiISR(kMicrophoneArrayIRQ, INT_EDGE_BOTH, &irq_callback);
 
   ReadConfValues();
 }

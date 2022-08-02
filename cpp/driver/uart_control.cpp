@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <wiringPi.h>
+//#include <wiringPi.h>
 #include <iostream>
 #include <string>
 
@@ -30,7 +30,8 @@ const uint16_t UART_BUSY = 0x0010;
 uint16_t UartControl::GetUartValue() {
   if (!bus_) return false;
   uint16_t value;
-  if (waitForInterrupt(kUartIRQ, -1) > 0) {
+//  if (waitForInterrupt(kUartIRQ, -1) > 0) {
+  if (false) {
     bus_->Read(kUartBaseAddress + 1, &value);
     return value;
   }
@@ -61,8 +62,8 @@ void UartControl::Setup(MatrixIOBus *bus) {
   // TODO(andres.calderon@admobilize.com): avoid systems calls
   std::system("gpio edge 5 rising");
 
-  wiringPiSetupSys();
+  //wiringPiSetupSys();
 
-  pinMode(kUartIRQ, INPUT);
+  //pinMode(kUartIRQ, INPUT);
 }
 }  // namespace matrix_hal

@@ -8,7 +8,7 @@ pipeline:
     commands:
       - curl https://apt.matrix.one/doc/apt-key.gpg | apt-key add -
       - apt-get update
-      - apt-get install --yes libfftw3-dev wiringpi libgflags-dev
+      - apt-get install --yes libfftw3-dev libgflags-dev
       - debuild -us -uc -b
       - mv ../*.deb .
 
