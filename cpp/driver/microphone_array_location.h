@@ -19,7 +19,6 @@
 #define CPP_DRIVER_MICARRAY_LOCATION_H_
 
 #include <string>
-#include "./imu_data.h"
 #include "./matrix_driver.h"
 
 namespace matrix_hal {

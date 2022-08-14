@@ -24,7 +24,6 @@
 
 #include "./circular_queue.h"
 #include "./matrix_driver.h"
-#include "./pressure_data.h"
 
 namespace matrix_hal {
 
