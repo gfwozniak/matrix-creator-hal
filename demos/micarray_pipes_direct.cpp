@@ -6,7 +6,6 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#include <wiringPi.h>
 
 #include <fstream>
 #include <iostream>

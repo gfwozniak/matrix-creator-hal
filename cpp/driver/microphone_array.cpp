@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <wiringPi.h>
 #include <lgpio.h>
 #include <cmath>
 #include <condition_variable>

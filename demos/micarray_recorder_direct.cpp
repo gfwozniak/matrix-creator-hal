@@ -4,7 +4,6 @@
  */
 
 #include <gflags/gflags.h>
-#include <wiringPi.h>
 
 #include <fstream>
 #include <iostream>

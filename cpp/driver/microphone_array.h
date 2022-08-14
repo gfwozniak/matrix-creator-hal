@@ -34,7 +34,7 @@ static const uint32_t MIC_sampling_frequencies[][3] = {
     {96000, 30, 10}, {0, 0, 0}};
 
 const uint16_t kMicarrayBufferSize = 4096;
-const uint16_t kMicrophoneArrayIRQ = 22;  // GPIO06 - WiringPi:22
+const uint16_t kMicrophoneArrayIRQ = 22;  // GPIO06 
 const uint16_t kMicrophoneChannels = 8;
 
 class MicrophoneArray : public MatrixDriver {

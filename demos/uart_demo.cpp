@@ -3,7 +3,6 @@
  * All rights reserved.
  */
 
-#include <wiringPi.h>
 #include <fstream>
 #include <iostream>
 #include <string>
