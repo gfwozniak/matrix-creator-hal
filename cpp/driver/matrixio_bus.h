@@ -51,7 +51,7 @@ class MatrixIOBus {
 
   uint32_t MatrixVersion() { return matrix_version_; }
 
-  int MatrixLeds() { return matrix_leds_; }
+  int MatrixLeds() { return 18; }
 
   bool IsDirectBus() { return direct_nkernel_; }
 

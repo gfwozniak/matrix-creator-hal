@@ -16,6 +16,7 @@
  */
 
 #include <wiringPi.h>
+#include <lgpio.h>
 #include <cmath>
 #include <condition_variable>
 #include <cstdint>
@@ -33,7 +34,7 @@
 static std::mutex irq_m;
 static std::condition_variable irq_cv;
 
-void irq_callback(void) { irq_cv.notify_all(); }
+void cbf(int e, lgGpioAlert_p evt, void *data) { irq_cv.notify_all(); }
 
 namespace matrix_hal {
 
@@ -58,10 +59,30 @@ MicrophoneArray::~MicrophoneArray() {}
 void MicrophoneArray::Setup(MatrixIOBus *bus) {
   MatrixDriver::Setup(bus);
 
-  wiringPiSetup();
+  int h, err;
+  int g = 6;
+  int chip = 0;
 
-  pinMode(kMicrophoneArrayIRQ, INPUT);
-  wiringPiISR(kMicrophoneArrayIRQ, INT_EDGE_BOTH, &irq_callback);
+  h = lgGpiochipOpen(chip);
+
+  if (h >= 0)
+  {
+     /* got a handle, now open the GPIO for alerts */
+     err = lgGpioClaimAlert(h, 0, LG_BOTH_EDGES, g, -1);
+     if (err < 0)
+     {
+        std::cout << "GPIO in use: " << lguErrorText(err) << "\n";
+        //return -1;
+     }
+  }
+  else
+  {
+     std::cout << "can't open gpiochip: " << lguErrorText(h) << "\n";
+     //return -1;
+  }
+  
+  //lgGpioSetSamplesFunc(cbf, NULL); // call cbf for all alerts 
+  lgGpioSetAlertsFunc(h, g, cbf, NULL);
 
   ReadConfValues();
 }

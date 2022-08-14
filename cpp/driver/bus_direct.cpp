@@ -17,6 +17,8 @@
 
 #include "cpp/driver/bus_direct.h"
 #include <errno.h>
+#include <cerrno>
+#include <cstdio>
 #include <fcntl.h>
 #include <linux/spi/spidev.h>
 #include <linux/types.h>
@@ -116,7 +118,8 @@ bool BusDirect::SpiTransfer(unsigned char *send_buffer,
   tr.bits_per_word = spi_bits_;
 
   if (ioctl(spi_fd_, SPI_IOC_MESSAGE(1), &tr) < 1) {
-    std::cerr << "can't send spi message" << std::endl;
+    //std::cerr << "can't send spi message" << std::endl;
+    std::perror("can't send spi message");
     return false;
   }
   return true;

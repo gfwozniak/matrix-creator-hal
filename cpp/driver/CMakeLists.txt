@@ -6,7 +6,10 @@ set(CMAKE_BUILD_TYPE Release)
 find_library (FFTW_LIBRARIES NAMES fftw3f )
 FIND_LIBRARY(WIRINGPI_LIB NAMES wiringPi)
 FIND_LIBRARY(WIRINGPI_DEV_LIB NAMES wiringPiDev)
+FIND_LIBRARY(LGPIO_LIB NAMES lgpio)
 FIND_LIBRARY(CRYPT_LIB NAMES crypt)
+
+message(${LGPIO_LIB})
 
 add_compile_options(-std=c++11)
 
@@ -46,7 +49,7 @@ add_library(matrix_creator_hal SHARED ${matrix_creator_hal_src})
   set_property(TARGET matrix_creator_hal PROPERTY CXX_STANDARD 11)
   target_link_libraries(matrix_creator_hal ${CMAKE_THREAD_LIBS_INIT} ${CMAKE_THREAD_LIBS_INIT})
   target_link_libraries(matrix_creator_hal ${FFTW_LIBRARIES})
-  target_link_libraries(matrix_creator_hal ${WIRINGPI_LIB} ${WIRINGPI_DEV_LIB} ${CRYPT_LIB})
+  target_link_libraries(matrix_creator_hal ${WIRINGPI_LIB} ${WIRINGPI_DEV_LIB} ${CRYPT_LIB} ${LGPIO_LIB})
 
 set (matrix_creator_hal_headers
   circular_queue.h
