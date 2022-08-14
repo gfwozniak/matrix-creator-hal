@@ -1,0 +1,20 @@
+Bug:
+
+MATRIX HAL compiled and worked on Raspbian Buster, but 
+did not work on newer versions of Raspbian or Ubuntu
+
+Fixes: 
+
+1) The original library used a deprecated library called 
+WiringPi. The first change was swapping out wiringPi 
+for a newer supported library called lgpio.
+
+2) The original library has two methods of sending data 
+to the hardware: SPI ioctl calls or with calls to custom
+kernel modules. Not wanting to deal with compiling 
+against the kernel, I only ported the SPI method.
+
+3) Then the problem with SPI is that the messages sent by 
+the library are bigger than the default SPI buffer.
+A kernel boot parameter has to be set to make this larger
+on startup.

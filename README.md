@@ -1,49 +1,48 @@
 # MATRIX Hardware Abstraction Layer (HAL)
 
-![Build Status](https://drone.matrix.one/api/badges/matrix-io/matrix-creator-hal/status.svg)
-
 [MATRIX Hardware Abstraction Layer (HAL)](https://matrix-io.github.io/matrix-documentation/matrix-hal/overview/) is an open source library for directly interfacing with the MATRIX Creator and MATRIX Voice. MATRIX HAL consists of driver files written in C++ which enable the user to write low level programs in C++.
 
-## Install from Package
+This version of the library is patched to work with Ubuntu 22.04 and Raspbian Bullseye on the RasPi with the MATRIX Voice. 
 
-```
-# Add repo and key
-curl -L https://apt.matrix.one/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.matrix.one/raspbian $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/matrixlabs.list
-
-# Update repo and packages
-sudo apt-get update
-sudo apt-get upgrade
-
-# Install MATRIX HAL Packages
-sudo apt-get install matrixio-creator-init libmatrixio-creator-hal libmatrixio-creator-hal-dev
-```
-
-### Helpful Information
-
-MATRIX HAL header files are installed in /usr/include/matrix_hal.
-
-The compiled MATRIX HAL library file is installed in /usr/lib/libmatrix_creator_hal.so.
+WARNING: Not all features from the original library are available: the humidity sensor, IMU, pressure sensor and UV sensor have all been removed from the library. There is only the microphone array and everloop LED interface. The MATRIX Creator is not supported currently. 
 
 ## Install from Source
 
+NOTE: This version of the library does NOT use the MATRIX kernel modules. If you install them, they will hide the spidev0.0 interface and prevent the library working. Please uninstall the MATRIX kernel modules before continuing.
+
+# Configuring system
+
+If you are on Ubuntu:
 ```
-# Add repo and key
-curl -L https://apt.matrix.one/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.matrix.one/raspbian $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/matrixlabs.list
-
-# Update repo and packages
-sudo apt-get update
-sudo apt-get upgrade
-
-# Install MATRIX HAL Packages and Build Prerequisites
-sudo apt-get install cmake g++ git libfftw3-dev libgflags-dev matrixio-creator-init
-
-# Reboot your Pi
-sudo reboot
+# increase SPI buffer size by
+# appending boot parameter to cmdline.txt
+sudo sed -i '$s/$/ spidev.bufsiz=12288/' /boot/firmware/cmdline.txt
 ```
 
-### Build Intructions
+If you are on Raspbian:
+```
+# enable SPI in the menu
+sudo raspi-config
+
+# increase SPI buffer size by
+# appending boot parameter to cmdline.txt
+sudo sed -i '$s/$/ spidev.bufsiz=12288/' /boot/cmdline.txt
+```
+
+...then for both, reboot.
+
+
+# Install build prerequisites
+
+```
+sudo apt install cmake g++ git libfftw3-dev libgflags-dev 
+```
+
+Also requires [lgpio](http://abyz.me.uk/lg/lgpio.html). 
+Please download and install from source.
+
+
+# Build instructions
 
 ```
 cd ~/
@@ -55,28 +54,34 @@ cmake ..
 make -j4 && sudo make install
 ```
 
-### Helpful Information
+### Install locations
+
 MATRIX HAL header files are installed in /usr/local/include/matrix_hal.
 
 The compiled MATRIX HAL library file is installed in /usr/local/lib/libmatrix_creator_hal.so.
 
-## References and Examples
-
-[Function References](https://matrix-io.github.io/matrix-documentation/matrix-hal/reference/)
-
-[Examples](https://matrix-io.github.io/matrix-documentation/matrix-hal/examples/)
 
 ## Demos
 
-These demos are only availiable if you downloaded HAL from source.
+Demos are included in the /demos directory. You can use the 
+mic_energy_direct demo to test functionality of microphones.
 
 ```
 # Should already be in ~/matrix-creator-hal/build
 cd demos
 
-# run the everloop demo
-./everloop_demo
+# run the mic demo, gets brighter when picks up noise
+./mic_energy_direct
 
 # see the rest of the examples
 ls -l
 ```
+
+## References and Examples from MATRIX Website
+
+[Function References](https://matrix-io.github.io/matrix-documentation/matrix-hal/reference/)
+[Examples](https://matrix-io.github.io/matrix-documentation/matrix-hal/examples/)
+
+## ChangeLog
+
+There is a detailed changelog to describe why I made certain decisions.
