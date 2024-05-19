@@ -46,7 +46,7 @@ Please download and install from source.
 
 ```
 cd ~/
-git clone https://github.com/matrix-io/matrix-creator-hal.git
+git clone https://github.com/gfwozniak/matrix-creator-hal.git
 cd matrix-creator-hal
 mkdir build
 cd build
