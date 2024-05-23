@@ -2,7 +2,7 @@
 
 > [!NOTE]  
 > 1) This fork doesn't seem to compile correctly anymore and I don't have access to MATRIX or RasPi hardware to debug this problem
-> 2) The motivation for this fork was swapping out the WiringPi library for another RasPi GPIO library which was deprecated on newer versions of Raspbian. However, WiringPi has new maintainers now so maybe this fork is no longer useful...
+> 2) The motivation for this fork was swapping out the WiringPi library for another RasPi GPIO library which wasn't deprecated on newer versions of Raspbian. However, WiringPi has new maintainers now so maybe this fork is no longer useful...
 
 [MATRIX Hardware Abstraction Layer (HAL)](https://matrix-io.github.io/matrix-documentation/matrix-hal/overview/) is an open source library for directly interfacing with the MATRIX Creator and MATRIX Voice. MATRIX HAL consists of driver files written in C++ which enable the user to write low level programs in C++.
 
